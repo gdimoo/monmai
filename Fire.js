@@ -1,0 +1,124 @@
+import firebase from "firebase";
+require("firebase/firestore");
+
+class Fire {
+    constructor() {
+        var firebaseConfig = {
+            apiKey: "AIzaSyBf0V83nJydmwNjmICEq7fXBkLqXu-RVPQ",
+            authDomain: "monmai-19a02.firebaseapp.com",
+            databaseURL: "https://monmai-19a02.firebaseio.com",
+            projectId: "monmai-19a02",
+            storageBucket: "monmai-19a02.appspot.com",
+            messagingSenderId: "144182517551",
+            appId: "1:144182517551:web:fdf1dcbab8f7e7b475cbda",
+            measurementId: "G-WVXGTR0FPP"
+          }; //ประกาศเพื่อระบุตัวตนแอพกับฐานข้อมูล
+        
+          firebase.initializeApp(firebaseConfig); //ทำการเชื่อมกับฐานข้อมูล
+    }
+
+    addPost = async ({ Commonname,Sciname,
+    Family,
+    Habit,
+    Character,
+    Utilli,
+    Phenology,
+    Distribution,
+    Color,getcolorfrom,localUri }) => {
+        const remoteUri = await this.uploadPhotoAsync(localUri, `photos/${Commonname}/${Date.now()}`);
+        
+
+        return new Promise((res, rej) => {
+            this.firestore
+                .collection("posts")
+                .add({
+                    Commonname,
+                    Sciname,
+                    Family,
+                    Habit,
+                    Character,
+                    Utilli,
+                    Phenology,
+                    Distribution,
+                    Color,
+                    getcolorfrom,
+                    timestamp: this.timestamp,
+                    image: remoteUri
+                })
+                .then(ref => {
+                    res(ref);
+                    
+                })
+                .catch(error => {
+                    rej(error);
+                });
+        });
+    };
+
+    uploadPhotoAsync = (uri, filename) => {
+        return new Promise(async (res, rej) => {
+            const response = await fetch(uri);
+            const file = await response.blob();
+
+            let upload = firebase
+                .storage()
+                .ref(filename)
+                .put(file);
+
+            upload.on(
+                "state_changed",
+                snapshot => {},
+                err => {
+                    rej(err);
+                },
+                async () => {
+                    const url = await upload.snapshot.ref.getDownloadURL();
+                    res(url);
+                }
+            );
+        });
+    };
+
+    createUser = async user => {
+        let remoteUri = null;
+
+        try {
+            await firebase.auth().createUserWithEmailAndPassword(user.email, user.password);
+
+            let db = this.firestore.collection("users").doc(this.uid);
+
+            db.set({
+                name: user.name,
+                email: user.email,
+                avatar: null
+            });
+
+            if (user.avatar) {
+                remoteUri = await this.uploadPhotoAsync(user.avatar, `avatars/${this.uid}`);
+
+                db.set({ avatar: remoteUri }, { merge: true });
+            }
+        } catch (error) {
+            alert("Error: ", error);
+        }
+    };
+
+    signOut = () => {
+        firebase.auth().signOut();
+    };
+
+    get firestore() {
+        return firebase.firestore();
+    }
+
+    get uid() {
+        return (firebase.auth().currentUser || {}).uid;
+    }
+
+    get timestamp() {
+        return Date.now();
+    }
+}
+
+Fire.shared = new Fire();
+export default Fire;
