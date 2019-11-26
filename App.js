@@ -17,6 +17,7 @@ import _ from 'lodash';
 
 YellowBox.ignoreWarnings(['Setting a timer']);
 const _console = _.clone(console);
+console.disableYellowBox = true;
 console.warn = message => {
   if (message.indexOf('Setting a timer') <= -1) {
     _console.warn(message);

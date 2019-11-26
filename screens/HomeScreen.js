@@ -7,41 +7,145 @@ import moment from "moment";
 // temporary data until we pull from Firebase
 posts = [
     {
-        id: "1",
-        name: "Joe McKay",
-        text:
-            "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
-        timestamp: 1569109273726,
-        avatar: require("../assets/tempAvatar.jpg"),
+ 
+        ENname: "Jack fruit tree, Jack tree",
+        THname: "ขนุน",
+        // text:
+        //     "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
+
+         
         image: require("../assets/tempImage1.jpg")
     },
     {
-        id: "2",
-        name: "Karyn Kim",
-        text:
-            "Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
-        timestamp: 1569109273726,
-        avatar: require("../assets/tempAvatar.jpg"),
-        image: require("../assets/tempImage2.jpg")
+ 
+        ENname: "Broken Bones, Indian trumpet Flower)",
+        THname: "เพกา",
+        // text:
+        //     "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
+
+         
+        image: require("../assets/tempImage1.jpg")
     },
     {
-        id: "3",
-        name: "Emerson Parsons",
-        text:
-            "Amet mattis vulputate enim nulla aliquet porttitor lacus luctus. Vel elit scelerisque mauris pellentesque pulvinar pellentesque habitant.",
-        timestamp: 1569109273726,
-        avatar: require("../assets/tempAvatar.jpg"),
-        image: require("../assets/tempImage3.jpg")
+ 
+        ENname: "Garcinia",
+        THname: "มะพูด(ปะโหด)",
+        // text:
+        //     "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
+
+         
+        image: require("../assets/tempImage1.jpg")
     },
     {
-        id: "4",
-        name: "Kathie Malone",
-        text:
-            "At varius vel pharetra vel turpis nunc eget lorem. Lorem mollis aliquam ut porttitor leo a diam sollicitudin tempor. Adipiscing tristique risus nec feugiat in fermentum.",
-        timestamp: 1569109273726,
-        avatar: require("../assets/tempAvatar.jpg"),
-        image: require("../assets/tempImage4.jpg")
-    }
+ 
+        ENname: "Marian plum, Plum mango",
+        THname: "มะปราง",
+        // text:
+        //     "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
+
+         
+        image: require("../assets/tempImage1.jpg")
+    },
+    {
+ 
+        ENname: "Mai Luang",
+        THname: "เข",
+        // text:
+        //     "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
+
+         
+        image: require("../assets/tempImage1.jpg")
+    },
+    {
+ 
+        ENname: "calendula",
+        THname: "ดาวเรือง",
+        // text:
+        //     "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
+
+         
+        image: require("../assets/tempImage1.jpg")
+    },
+    {
+ 
+        ENname: "Indigo",
+        THname: "คราม",
+        // text:
+        //     "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
+
+         
+        image: require("../assets/tempImage1.jpg")
+    },
+    {
+ 
+        ENname: "Copper Pod , Yellow Flame",
+        THname: "อะราง",
+        // text:
+        //     "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
+
+         
+        image: require("../assets/tempImage1.jpg")
+    },
+    {
+ 
+        ENname: "Golden Shower Tree",
+        THname: "คูณ",
+        // text:
+        //     "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
+
+         
+        image: require("../assets/tempImage1.jpg")
+    },
+    {
+ 
+        ENname: "Neem",
+        THname: "สะเดา",
+        // text:
+        //     "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
+
+         
+        image: require("../assets/tempImage1.jpg")
+    },
+    {
+ 
+        ENname: "Burma padauk",
+        THname: "ประดู่",
+        // text:
+        //     "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
+
+         
+        image: require("../assets/tempImage1.jpg")
+    },
+    {
+ 
+        ENname: "Vietnamese mickey mouse plant",
+        THname: "ช้างน้าว",
+        // text:
+        //     "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
+
+         
+        image: require("../assets/tempImage1.jpg")
+    },
+    {
+ 
+        ENname: "White Popinac, Lead Tree",
+        THname: "กระถินบ้าน",
+        // text:
+        //     "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
+
+         
+        image: require("../assets/tempImage1.jpg")
+    },
+    {
+ 
+        ENname: "Annatto tree,Achiote,Lipstick tree",
+        THname: "คำแสด",
+        // text:
+        //     "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
+
+         
+        image: require("../assets/tempImage1.jpg")
+    },
 ];
 
 export default class HomeScreen extends React.Component {
@@ -57,22 +161,17 @@ export default class HomeScreen extends React.Component {
     renderPost = post => {
         return (
             <View style={styles.feedItem}>
-                <Image source={post.avatar} style={styles.avatar} />
                 <View style={{ flex: 1 }}>
                     <View style={{ flexDirection: "row", justifyContent: "space-between", alignItems: "center" }}>
                         <View>
-                            <Text style={styles.name}>{post.name}</Text>
-                            <Text style={styles.timestamp}>{moment(post.timestamp).fromNow()}</Text>
+                            <Text style={styles.name}>{post.THname}</Text>
+                            <Text style={styles.name}>{post.ENname}</Text>
                         </View>
 
                         <Ionicons name="ios-more" size={24} color="#73788B" />
                     </View>
-                    <Text style={styles.post}>{post.text}</Text>
+                    {/* <Text style={styles.post}>{post.text}</Text> */}
                     <Image source={post.image} style={styles.postImage} resizeMode="cover" />
-                    <View style={{ flexDirection: "row" }}>
-                        <Ionicons name="ios-heart-empty" size={24} color="#73788B" style={{ marginRight: 16 }} />
-                        <Ionicons name="ios-chatboxes" size={24} color="#73788B" />
-                    </View>
                 </View>
             </View>
         );
