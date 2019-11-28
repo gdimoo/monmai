@@ -1,13 +1,23 @@
 import React from "react";
 import { View, Text, StyleSheet, Image, FlatList,TouchableOpacity,Button,InteractionManager } from "react-native";
 import { Ionicons } from "@expo/vector-icons";
-import moment from "moment";
 
-
-// temporary data until we pull from Firebase
 posts = [
+
+{
+
+    ENname: "Broken Bones, Indian trumpet Flower",
+    id: 'NDP01',
+
+    THname: "เพกา",
+    // text:
+    //     "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
+
+     
+    image: require('../assets/(1)/(1).jpg')
+},
     {
-        id:'NDP01',
+        id:'NDP02',
  
         ENname: "Jack fruit tree, Jack tree",
         THname: "ขนุน",
@@ -15,31 +25,20 @@ posts = [
         //     "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
 
          
-        image: require("../assets/tempImage1.jpg")
-    },
-    {
- 
-        ENname: "Broken Bones, Indian trumpet Flower)",
-        id: 'NDP02',
-
-        THname: "เพกา",
-        // text:
-        //     "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
-
-         
-        image: require("../assets/tempImage1.jpg")
+        image: require('../assets/(2)/(1).jpg')
     },
     {
  
         ENname: "Garcinia",
         THname: "มะพูด(ปะโหด)",
         id: 'NDP03',
+        image: require('../assets/(3)/(1).jpg')
+
 
         // text:
         //     "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
 
          
-        image: require("../assets/tempImage1.jpg")
     },
     {
  
@@ -51,7 +50,7 @@ posts = [
         //     "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
 
          
-        image: require("../assets/tempImage1.jpg")
+        image: require('../assets/(4)/(1).jpg')
     },
     {
  
@@ -63,7 +62,7 @@ posts = [
         //     "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
 
          
-        image: require("../assets/tempImage1.jpg")
+        image: require('../assets/(5)/(1).jpg')
     },
     {
  
@@ -75,7 +74,7 @@ posts = [
         //     "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
 
          
-        image: require("../assets/tempImage1.jpg")
+        image: require('../assets/(6)/(1).jpg')
     },
     {
  
@@ -87,7 +86,7 @@ posts = [
         //     "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
 
          
-        image: require("../assets/tempImage1.jpg")
+        image: require('../assets/(7)/(1).jpg')
     },
     {
  
@@ -99,7 +98,7 @@ posts = [
         //     "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
 
          
-        image: require("../assets/tempImage1.jpg")
+        image: require('../assets/(8)/(1).jpg')
     },
     {
  
@@ -111,7 +110,7 @@ posts = [
         //     "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
 
          
-        image: require("../assets/tempImage1.jpg")
+        image: require('../assets/(9)/(1).jpg')
     },
     {
         id: 'NDP10',
@@ -123,7 +122,7 @@ posts = [
         //     "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
 
          
-        image: require("../assets/tempImage1.jpg")
+        image: require('../assets/(10)/(1).jpg')
     },
     {
  
@@ -135,7 +134,7 @@ posts = [
         //     "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
 
          
-        image: require("../assets/tempImage1.jpg")
+        image: require('../assets/(11)/(1).jpg')
     },
     {
         id: 'NDP12',
@@ -147,7 +146,7 @@ posts = [
         //     "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
 
          
-        image: require("../assets/tempImage1.jpg")
+        image: require('../assets/(12)/(1).jpg')
     },
     {
  
@@ -158,7 +157,7 @@ posts = [
         //     "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
 
          
-        image: require("../assets/tempImage1.jpg")
+        image: require('../assets/(13)/(1).jpg')
     },
     {
  
@@ -169,7 +168,7 @@ posts = [
         //     "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
 
          
-        image: require("../assets/tempImage1.jpg")
+        image: require('../assets/(14)/(1).jpg')
     },
 ];
 
@@ -179,14 +178,12 @@ export default class HomeScreen extends React.Component {
         InteractionManager.runAfterInteractions(() => {
             navigation.navigate('Loading')
           })
-        //   console.log('fsdffsdfsd');
-        // Alert.alert('Floating Button Clicked');
       };
 
     renderPost = post => {
         return (
                 < TouchableOpacity onPress = {
-                    () => alert("pressed!")
+                    () =>  this.props.navigation.navigate(post.id)
                 } >
             <View style={styles.feedItem}>
                 <View style={{ flex: 1 }}>
