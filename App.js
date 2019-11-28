@@ -6,7 +6,7 @@ import { createBottomTabNavigator } from "react-navigation-tabs";
 import { Ionicons,MaterialCommunityIcons } from "@expo/vector-icons";
 import LoadingScreen from "./screens/LoadingScreen";
 import LoginScreen from "./screens/LoginScreen";
-// import RegisterScreen from "./screens/RegisterScreen";
+import RegisterScreen from "./screens/RegisterScreen";
 
 import HomeScreen from "./screens/HomeScreen";
 import PostScreen from "./screens/PostScreen";
