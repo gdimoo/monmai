@@ -33,7 +33,11 @@ export default class LoginScreen extends React.Component {
 
         return (
             <ImageBackground source={require('../assets/Bodylogin.png')} style={{flex:1,width: '100%', height: '100%'}}>
-            <View style={styles.header}>
+            < View style = {
+                styles.header, {
+                    marginTop: 50
+                }
+            } >
                     <TouchableOpacity onPress = {
                   () => this.clickEventListener(this.props.navigation)
                 }>

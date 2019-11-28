@@ -6,12 +6,13 @@ import { createBottomTabNavigator } from "react-navigation-tabs";
 import { Ionicons,MaterialCommunityIcons } from "@expo/vector-icons";
 import LoadingScreen from "./screens/LoadingScreen";
 import LoginScreen from "./screens/LoginScreen";
-import RegisterScreen from "./screens/RegisterScreen";
+// import RegisterScreen from "./screens/RegisterScreen";
 
 import HomeScreen from "./screens/HomeScreen";
 import PostScreen from "./screens/PostScreen";
 import NotificationScreen from "./screens/NotificationScreen";
 import ScanScreen from "./screens/ScanScreen";
+import NDP01Screen from "./screens/NDP01";
 import { YellowBox } from 'react-native';
 import _ from 'lodash';
 
@@ -35,6 +36,13 @@ const config = Platform.select({
     },
     config
   );
+
+  createStackNavigator({
+          NDP01: NDP01Screen,
+      },
+      config
+  );
+
 
 const AppContainer = createStackNavigator(
     {
@@ -115,6 +123,7 @@ export default createAppContainer(
             App: AppContainer,
             Auth: AuthStack,
             Post: PostScreen,
+            NDP01: NDP01Screen,
         },
         {
             initialRouteName: "App"

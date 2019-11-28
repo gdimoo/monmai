@@ -7,6 +7,7 @@ import moment from "moment";
 // temporary data until we pull from Firebase
 posts = [
     {
+        id:'NDP01',
  
         ENname: "Jack fruit tree, Jack tree",
         THname: "ขนุน",
@@ -19,6 +20,8 @@ posts = [
     {
  
         ENname: "Broken Bones, Indian trumpet Flower)",
+        id: 'NDP02',
+
         THname: "เพกา",
         // text:
         //     "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
@@ -30,6 +33,8 @@ posts = [
  
         ENname: "Garcinia",
         THname: "มะพูด(ปะโหด)",
+        id: 'NDP03',
+
         // text:
         //     "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
 
@@ -39,6 +44,8 @@ posts = [
     {
  
         ENname: "Marian plum, Plum mango",
+        id: 'NDP04',
+
         THname: "มะปราง",
         // text:
         //     "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
@@ -50,6 +57,8 @@ posts = [
  
         ENname: "Mai Luang",
         THname: "เข",
+        id: 'NDP05',
+
         // text:
         //     "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
 
@@ -60,6 +69,8 @@ posts = [
  
         ENname: "calendula",
         THname: "ดาวเรือง",
+        id: 'NDP06',
+
         // text:
         //     "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
 
@@ -70,6 +81,8 @@ posts = [
  
         ENname: "Indigo",
         THname: "คราม",
+        id: 'NDP07',
+
         // text:
         //     "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
 
@@ -80,6 +93,8 @@ posts = [
  
         ENname: "Copper Pod , Yellow Flame",
         THname: "อะราง",
+        id: 'NDP08',
+
         // text:
         //     "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
 
@@ -90,6 +105,8 @@ posts = [
  
         ENname: "Golden Shower Tree",
         THname: "คูณ",
+        id: 'NDP09',
+
         // text:
         //     "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
 
@@ -97,6 +114,8 @@ posts = [
         image: require("../assets/tempImage1.jpg")
     },
     {
+        id: 'NDP10',
+
  
         ENname: "Neem",
         THname: "สะเดา",
@@ -108,6 +127,8 @@ posts = [
     },
     {
  
+        id: 'NDP11',
+
         ENname: "Burma padauk",
         THname: "ประดู่",
         // text:
@@ -117,6 +138,8 @@ posts = [
         image: require("../assets/tempImage1.jpg")
     },
     {
+        id: 'NDP12',
+
  
         ENname: "Vietnamese mickey mouse plant",
         THname: "ช้างน้าว",
@@ -128,7 +151,8 @@ posts = [
     },
     {
  
-        ENname: "White Popinac, Lead Tree",
+        id: 'NDP13',
+            ENname: "White Popinac, Lead Tree",
         THname: "กระถินบ้าน",
         // text:
         //     "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
@@ -138,7 +162,8 @@ posts = [
     },
     {
  
-        ENname: "Annatto tree,Achiote,Lipstick tree",
+        id: 'NDP14',
+            ENname: "Annatto tree,Achiote,Lipstick tree",
         THname: "คำแสด",
         // text:
         //     "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
@@ -160,6 +185,9 @@ export default class HomeScreen extends React.Component {
 
     renderPost = post => {
         return (
+                < TouchableOpacity onPress = {
+                    () => alert("pressed!")
+                } >
             <View style={styles.feedItem}>
                 <View style={{ flex: 1 }}>
                     <View style={{ flexDirection: "row", justifyContent: "space-between", alignItems: "center" }}>
@@ -174,6 +202,7 @@ export default class HomeScreen extends React.Component {
                     <Image source={post.image} style={styles.postImage} resizeMode="cover" />
                 </View>
             </View>
+                </ TouchableOpacity>
         );
     };
 
@@ -200,6 +229,7 @@ export default class HomeScreen extends React.Component {
                     renderItem={({ item }) => this.renderPost(item)}
                     keyExtractor={item => item.id}
                     showsVerticalScrollIndicator={false}
+                    >
                 ></FlatList></View>
             </View>
         );
@@ -271,7 +301,7 @@ const styles = StyleSheet.create({
         width: 50,
         borderRadius: 200,
         position: 'absolute',
-        bottom: 410,
+        marginTop: 180,
         right: 20,
         justifyContent: 'center',
         alignItems: 'center',
