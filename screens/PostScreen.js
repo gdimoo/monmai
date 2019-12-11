@@ -11,17 +11,16 @@ import Reinput, { ReinputButton } from 'reinput'
 
 export default class PostScreen extends React.Component {
     state = {
+        No: "",
+        nameTH: "",
         Commonname: "",
         Sciname: "",
         Family: "",
-        Habit: "",
-        Character: "",
-        Utilli: "",
-        Phenology: "",
-        Distribution: "",
-        Color: "",
-        getcolorfrom: "",
-        image: null
+        Plantpart: "",
+        shade: "",
+        image: null,
+        image2: null,
+        image3: null,
     };
 
     componentDidMount() {
@@ -36,29 +35,31 @@ export default class PostScreen extends React.Component {
 
     handlePost = () => {
         Fire.shared
-            .addPost({ Commonname: this.state.Commonname.trim(),
+            .addPost({ 
+                No: this.state.No.trim(),
+                nameTH: this.state.nameTH.trim(),
+                Commonname: this.state.Commonname.trim(),
                 Sciname: this.state.Sciname.trim(),
                 Family: this.state.Family.trim(),
-                Habit: this.state.Habit.trim(),
-                Character: this.state.Character.trim(),
-                Utilli: this.state.Utilli.trim(),
-                Phenology: this.state.Phenology.trim(),
-                Distribution: this.state.Distribution.trim(),
-                Color: this.state.Color.trim(),
-                getcolorfrom: this.state.getcolorfrom.trim(), localUri: this.state.image })
+                Plantpart: this.state.Plantpart.trim(),
+                shade: this.state.shade.trim(),
+                localUri: this.state.image,
+                localUri2: this.state.image2,
+                localUri3: this.state.image3 })
             .then(ref => {
                 this.setState({ 
-                Commonname: "",
-                Sciname: "",
-                Family: "",
-                Habit: "",
-                Character: "",
-                Utilli: "",
-                Phenology: "",
-                Distribution: "",
-                Color: "",
-                getcolorfrom: "", image: null });
-                this.props.navigation.goBack();
+                  No: "",
+                  nameTH: "",
+                  Commonname: "",
+                  Sciname: "",
+                  Family: "",
+                  Plantpart: "",
+                  shade: "",
+                image: null,
+                image2: null,
+                image3: null, });
+                alert("เพิ่มข้อมูลสำเร็จ")
+                // this.props.navigation.goBack();
             })
             .catch(error => {
                 alert(error);
@@ -69,13 +70,34 @@ export default class PostScreen extends React.Component {
         let result = await ImagePicker.launchImageLibraryAsync({
             mediaTypes: ImagePicker.MediaTypeOptions.Images,
             allowsEditing: true,
-            aspect: [4, 3]
         });
 
         if (!result.cancelled) {
             this.setState({ image: result.uri });
         }
     };
+
+    pickImage2 = async () => {
+      let result = await ImagePicker.launchImageLibraryAsync({
+          mediaTypes: ImagePicker.MediaTypeOptions.Images,
+          allowsEditing: true,
+      });
+
+      if (!result.cancelled) {
+          this.setState({ image2: result.uri });
+      }
+  };
+
+  pickImage3 = async () => {
+    let result = await ImagePicker.launchImageLibraryAsync({
+        mediaTypes: ImagePicker.MediaTypeOptions.Images,
+        allowsEditing: true,
+    });
+
+    if (!result.cancelled) {
+        this.setState({ image3: result.uri });
+    }
+};
 
     render() {
         return (
@@ -98,27 +120,48 @@ export default class PostScreen extends React.Component {
         <Text style={styles.welcome}>
           Add Tree Information
         </Text>
-        <Button
-                    onPress={() => {
-                        Fire.shared.signOut();
-                    }}
-                    title="Log out"
-                />
-                <View style={{ marginHorizontal: 32, marginTop: 32, height: 100 }}>
-                    <Image source={{ uri: this.state.image }} style={{ width: "100%", height: "100%" }} resizeMode="contain"></Image>
-                </View>
+        {/* <View style={{flexDirection: 'row',marginHorizontal: 32, marginTop: 32, height: 100}}> */}
         <TouchableOpacity style={styles.photo} onPress={this.pickImage}>
                     <Ionicons name="md-camera" size={32} color="#D8D9DB"></Ionicons>
                 </TouchableOpacity>
+        <View style={{ marginHorizontal: 32, marginTop: 32, height: 100 }}>
+                    <Image source={{ uri: this.state.image }} style={{ width: "100%", height: "100%" }} resizeMode="contain"></Image>
+                </View>
+                <TouchableOpacity style={styles.photo} onPress={this.pickImage2}>
+                    <Ionicons name="md-camera" size={32} color="#D8D9DB"></Ionicons>
+                </TouchableOpacity>
+                <View style={{ marginHorizontal: 32, marginTop: 32, height: 100 }}>
+                    <Image source={{ uri: this.state.image2 }} style={{ width: "100%", height: "100%" }} resizeMode="contain"></Image>
+                </View>
+                <TouchableOpacity style={styles.photo} onPress={this.pickImage3}>
+                    <Ionicons name="md-camera" size={32} color="#D8D9DB"></Ionicons>
+                </TouchableOpacity>
+                <View style={{ marginHorizontal: 32, marginTop: 32, height: 100 }}>
+                    <Image source={{ uri: this.state.image3 }} style={{ width: "100%", height: "100%" }} resizeMode="contain"></Image>
+       
+                </View>
+                {/* </View> */}
                <ScrollView
          contentContainerStyle={styles.scrollContainer}
          style={styles.container}>
-        <Reinput
-          label='Common name / Local name'
-          icon={<Image source={require('./icon.png')} />}
-          onChangeText={(text) => this.setState({Commonname:text})}
-          value={this.state.Commonname}
-        />
+         <Reinput
+           label='No.'
+           icon={<Image source={require('./icon.png')} />}
+           onChangeText={(text) => this.setState({No:text})}
+           value={this.state.No}
+         />
+         <Reinput
+           label='ชื่อสามัญ'
+           icon={<Image source={require('./icon.png')} />}
+           onChangeText={(text) => this.setState({nameTH:text})}
+           value={this.state.nameTH}
+         />
+         <Reinput
+           label='Common name / Local name'
+           icon={<Image source={require('./icon.png')} />}
+           onChangeText={(text) => this.setState({Commonname:text})}
+           value={this.state.Commonname}
+         />
         <Reinput
           label='Scientific name'
           icon={<Image source={require('./icon.png')} />}
@@ -132,57 +175,28 @@ export default class PostScreen extends React.Component {
           value={this.state.Family}
         />
         <Reinput
-          label='Habit'
+          label='Plant Part'
           icon={<Image source={require('./icon.png')} />}
-          onChangeText={(text) => this.setState({Habit:text})}
-          value={this.state.Habit}
+          onChangeText={(text) => this.setState({Plantpart:text})}
+          value={this.state.Plantpart}
         />
         <Reinput
-          label='Morphological character'
+          label='Shade'
           icon={<Image source={require('./icon.png')} />}
-          onChangeText={(text) => this.setState({Character:text})}
-          value={this.state.Character}
-        />
-        <Reinput
-          label='Utilization'
-          icon={<Image source={require('./icon.png')} />}
-          onChangeText={(text) => this.setState({Utilli:text})}
-          value={this.state.Utilli}
-        />
-        <Reinput
-          label='Phenology'
-          icon={<Image source={require('./icon.png')} />}
-          onChangeText={(text) => this.setState({Phenology:text})}
-          value={this.state.Phenology}
-        />
-        <Reinput
-          label='Distribution'
-          icon={<Image source={require('./icon.png')} />}
-          onChangeText={(text) => this.setState({Distribution:text})}
-          value={this.state.Distribution}
-        />
-        <Reinput
-          label='Color'
-          icon={<Image source={require('./icon.png')} />}
-          onChangeText={(text) => this.setState({Color:text})}
-          value={this.state.Color}
-        />
-        <Reinput
-          label='ส่วนที่ใช้สกัดสี'
-          icon={<Image source={require('./icon.png')} />}
-          onChangeText={(text) => this.setState({getcolorfrom:text})}
-          value={this.state.getcolorfrom}
+          onChangeText={(text) => this.setState({shade:text})}
+          value={this.state.shade}
         />
 
                 </ScrollView>
-                {/* <TouchableOpacity style={styles.photo} onPress={this.pickImage}>
-                    <Ionicons name="md-camera" size={32} color="#D8D9DB"></Ionicons>
-                </TouchableOpacity>
-                <View style={{ marginHorizontal: 32, marginTop: 32, height: 150 }}>
-                    <Image source={{ uri: this.state.image }} style={{ width: "100%", height: "100%" }}></Image>
-                </View> */}
+        
                 </View>
             </SafeAreaView>
+            <Button
+                    onPress={() => {
+                        Fire.shared.signOut();
+                    }}
+                    title="Log out"
+                />
             </ImageBackground>
 
         );
@@ -191,7 +205,8 @@ export default class PostScreen extends React.Component {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    padding: 16
+    padding: 16,
+    
   },
   scrollContainer: {
     alignItems: 'center',

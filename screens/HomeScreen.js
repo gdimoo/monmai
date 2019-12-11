@@ -1,202 +1,66 @@
 import React from "react";
-import { View, Text, StyleSheet, Image, FlatList,TouchableOpacity,Button,InteractionManager } from "react-native";
+import { View, Text, StyleSheet, Image, FlatList,TouchableOpacity,Dimensions,InteractionManager } from "react-native";
 import { Ionicons } from "@expo/vector-icons";
+import Fire from "../Fire";
 
-posts = [
-
-{
-
-    ENname: "Broken Bones, Indian trumpet Flower",
-    id: 'NDP01',
-
-    THname: "เพกา",
-    // text:
-    //     "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
-
-     
-    image: require('../assets/(1)/(1).jpg')
-},
-    {
-        id:'NDP02',
- 
-        ENname: "Jack fruit tree, Jack tree",
-        THname: "ขนุน",
-        // text:
-        //     "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
-
-         
-        image: require('../assets/(2)/(1).jpg')
-    },
-    {
- 
-        ENname: "Garcinia",
-        THname: "มะพูด(ปะโหด)",
-        id: 'NDP03',
-        image: require('../assets/(3)/(1).jpg')
-
-
-        // text:
-        //     "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
-
-         
-    },
-    {
- 
-        ENname: "Marian plum, Plum mango",
-        id: 'NDP04',
-
-        THname: "มะปราง",
-        // text:
-        //     "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
-
-         
-        image: require('../assets/(4)/(1).jpg')
-    },
-    {
- 
-        ENname: "Mai Luang",
-        THname: "เข",
-        id: 'NDP05',
-
-        // text:
-        //     "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
-
-         
-        image: require('../assets/(5)/(1).jpg')
-    },
-    {
- 
-        ENname: "calendula",
-        THname: "ดาวเรือง",
-        id: 'NDP06',
-
-        // text:
-        //     "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
-
-         
-        image: require('../assets/(6)/(1).jpg')
-    },
-    {
- 
-        ENname: "Indigo",
-        THname: "คราม",
-        id: 'NDP07',
-
-        // text:
-        //     "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
-
-         
-        image: require('../assets/(7)/(1).jpg')
-    },
-    {
- 
-        ENname: "Copper Pod , Yellow Flame",
-        THname: "อะราง",
-        id: 'NDP08',
-
-        // text:
-        //     "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
-
-         
-        image: require('../assets/(8)/(1).jpg')
-    },
-    {
- 
-        ENname: "Golden Shower Tree",
-        THname: "คูณ",
-        id: 'NDP09',
-
-        // text:
-        //     "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
-
-         
-        image: require('../assets/(9)/(1).jpg')
-    },
-    {
-        id: 'NDP10',
-
- 
-        ENname: "Neem",
-        THname: "สะเดา",
-        // text:
-        //     "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
-
-         
-        image: require('../assets/(10)/(1).jpg')
-    },
-    {
- 
-        id: 'NDP11',
-
-        ENname: "Burma padauk",
-        THname: "ประดู่",
-        // text:
-        //     "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
-
-         
-        image: require('../assets/(11)/(1).jpg')
-    },
-    {
-        id: 'NDP12',
-
- 
-        ENname: "Vietnamese mickey mouse plant",
-        THname: "ช้างน้าว",
-        // text:
-        //     "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
-
-         
-        image: require('../assets/(12)/(1).jpg')
-    },
-    {
- 
-        id: 'NDP13',
-            ENname: "White Popinac, Lead Tree",
-        THname: "กระถินบ้าน",
-        // text:
-        //     "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
-
-         
-        image: require('../assets/(13)/(1).jpg')
-    },
-    {
- 
-        id: 'NDP14',
-            ENname: "Annatto tree,Achiote,Lipstick tree",
-        THname: "คำแสด",
-        // text:
-        //     "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
-
-         
-        image: require('../assets/(14)/(1).jpg')
-    },
-];
+const { width } = Dimensions.get('window');
+const height = width * 0.5;
 
 export default class HomeScreen extends React.Component {
+    constructor(props) {
+        super(props);
+        this.state = {
+          posts: []
+        };
+      }
+
     clickEventListener = (navigation) => {
         //function to handle click on floating Action Button
         InteractionManager.runAfterInteractions(() => {
             navigation.navigate('Loading')
           })
       };
+      componentDidMount() {
+          this.fetchData();
+          
+    
+        }
+        fetchData = () => {
+            Fire.shared.firestore
+          .collection('posts')
+          .get()
+          .then(querySnapshot => {
+            const data = querySnapshot.docs.map(doc => doc.data());
+            // console.log(data);
+            // console.log(this.state.posts);
+
+            // this.state.posts=data
+            this.setState({ posts: data });
+            // console.log(this.state.posts);
+
+        }
+        );
+        }
+      
 
     renderPost = post => {
         return (
                 < TouchableOpacity onPress = {
-                    () =>  this.props.navigation.navigate(post.id)
+                    () => this.props.navigation.navigate('Profile',{
+                        ListView_Clicked_Item: post.No,
+                      })
                 } >
             <View style={styles.feedItem}>
                 <View style={{ flex: 1 }}>
                     <View style={{ flexDirection: "row", justifyContent: "space-between", alignItems: "center" }}>
                         <View>
-                            <Text style={styles.name}>{post.THname}</Text>
-                            <Text style={styles.name}>{post.ENname}</Text>
+                            <Text style={styles.name}>{post.nameTH}</Text>
+                            <Text style={styles.name}>{post.Commonname}</Text>
                         </View>
 
                         <Ionicons name="ios-more" size={24} color="#73788B" />
                     </View>
-                    {/* <Text style={styles.post}>{post.text}</Text> */}
-                    <Image source={post.image} style={styles.postImage} resizeMode="cover" />
+                    <Image source={{uri: post.image }} style={styles.postImage} resizeMode="cover" />
                 </View>
             </View>
                 </ TouchableOpacity>
@@ -204,11 +68,12 @@ export default class HomeScreen extends React.Component {
     };
 
     render() {
+        // const { posts } = this.state.posts;
         return (
             <View style={styles.container}>
                 <View style={{flex:1}}>
-        <Image style={{width: 420,height:200}}
-          source={require('../assets/headerhome.png')}
+        <Image style={{width: width,height:height}}
+          source={require('../assets/headerhome.png')} resizeMode="contain"
         />
       </View>
       <TouchableOpacity style={styles.fab} 
@@ -218,13 +83,13 @@ export default class HomeScreen extends React.Component {
             <Text style={styles.text}>+</Text>
           </TouchableOpacity>
 
-          <View style={{marginTop: 250}}>
+          <View style={{marginTop: height}}>
 
                 <FlatList
                     style={styles.feed}
-                    data={posts}
+                    data={this.state.posts}
                     renderItem={({ item }) => this.renderPost(item)}
-                    keyExtractor={item => item.id}
+                    keyExtractor={item => item.No}
                     showsVerticalScrollIndicator={false}
                     >
                 ></FlatList></View>
@@ -237,20 +102,6 @@ const styles = StyleSheet.create({
     container: {
         flex: 1,
         backgroundColor: "#EBECF4"
-    },
-    header: {
-        paddingTop: 64,
-        paddingBottom: 16,
-        backgroundColor: "#FFF",
-        alignItems: "center",
-        justifyContent: "center",
-        borderBottomWidth: 1,
-        borderBottomColor: "#EBECF4",
-        shadowColor: "#454D65",
-        shadowOffset: { height: 5 },
-        shadowRadius: 15,
-        shadowOpacity: 0.2,
-        zIndex: 10
     },
     headerTitle: {
         fontSize: 20,
@@ -266,14 +117,8 @@ const styles = StyleSheet.create({
         flexDirection: "row",
         marginVertical: 8
     },
-    avatar: {
-        width: 36,
-        height: 36,
-        borderRadius: 18,
-        marginRight: 16
-    },
     name: {
-        fontSize: 15,
+        fontSize: 18,
         fontWeight: "500",
         color: "#454D65"
     },
@@ -289,7 +134,7 @@ const styles = StyleSheet.create({
     },
     postImage: {
         width: undefined,
-        height: 150,
+        height: height,
         borderRadius: 5,
         marginVertical: 16
     },
@@ -298,7 +143,7 @@ const styles = StyleSheet.create({
         width: 50,
         borderRadius: 200,
         position: 'absolute',
-        marginTop: 180,
+        marginTop: height-100,
         right: 20,
         justifyContent: 'center',
         alignItems: 'center',

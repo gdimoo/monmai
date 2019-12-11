@@ -1,4 +1,5 @@
 import firebase from "firebase";
+// import { database } from 'firebase/app'
 require("firebase/firestore");
 
 class Fire {
@@ -16,34 +17,37 @@ class Fire {
         
           firebase.initializeApp(firebaseConfig); //ทำการเชื่อมกับฐานข้อมูล
     }
-
-    addPost = async ({ Commonname,Sciname,
-    Family,
-    Habit,
-    Character,
-    Utilli,
-    Phenology,
-    Distribution,
-    Color,getcolorfrom,localUri }) => {
-        const remoteUri = await this.uploadPhotoAsync(localUri, `photos/${Commonname}/${Date.now()}`);
+    
+    addPost = async ({ 
+        No,
+        nameTH,
+        Commonname,
+        Sciname,
+        Family,
+        Plantpart,
+        shade,
+        localUri,
+        localUri2,
+        localUri3 }) => {
+        const remoteUri = await this.uploadPhotoAsync(localUri, `photos/${No}/1`);
+        const remoteUri2 = await this.uploadPhotoAsync(localUri2, `photos/${No}/2`);
+        const remoteUri3 = await this.uploadPhotoAsync(localUri3, `photos/${No}/3`);
         
 
         return new Promise((res, rej) => {
             this.firestore
                 .collection("posts")
                 .add({
-                    Commonname,
-                    Sciname,
-                    Family,
-                    Habit,
-                    Character,
-                    Utilli,
-                    Phenology,
-                    Distribution,
-                    Color,
-                    getcolorfrom,
-                    timestamp: this.timestamp,
-                    image: remoteUri
+                    No,
+        nameTH,
+        Commonname,
+        Sciname,
+        Family,
+        Plantpart,
+        shade,
+                    image: remoteUri,
+                    image2: remoteUri2,
+                    image3: remoteUri3,
                 })
                 .then(ref => {
                     res(ref);
@@ -118,6 +122,20 @@ class Fire {
     get timestamp() {
         return Date.now();
     }
+    // getByQuery = async() => {
+    //     let db = this.firestore
+    //     .collection('posts').get()
+    //     .then(querySnapshot => {
+    //       const data = querySnapshot.docs.map(doc => doc.data());
+    //     //   for (let dataObject of data) {
+    //     //     // console.log(dataObject.Commonname);
+    //     // }
+    //     this.setState({posts: querySnapshot.docs.map(doc => doc.data())});
+    //       console.log(posts); // array of cities objects
+    //         return posts;
+    //     });
+
+    //   }
 }
 
 Fire.shared = new Fire();

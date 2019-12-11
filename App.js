@@ -7,6 +7,7 @@ import { Ionicons,MaterialCommunityIcons } from "@expo/vector-icons";
 import LoadingScreen from "./screens/LoadingScreen";
 import LoginScreen from "./screens/LoginScreen";
 import RegisterScreen from "./screens/RegisterScreen";
+import ProfileScreen from "./screens/ProfileScreen";
 
 import HomeScreen from "./screens/HomeScreen";
 import PostScreen from "./screens/PostScreen";
@@ -46,6 +47,12 @@ const config = Platform.select({
   createStackNavigator(
     {
         Post: PostScreen,
+    },
+    config
+  );  
+  createStackNavigator(
+    {
+        Profile: ProfileScreen,
     },
     config
   );
@@ -149,7 +156,7 @@ export default createAppContainer(
             App: AppContainer,
             Auth: AuthStack,
             Post: PostScreen,
-            NDP01: NDP01Screen,
+            Profile: ProfileScreen,
             NDP01: NDP01Screen,
 NDP02: NDP02Screen,
 NDP03: NDP03Screen,
@@ -166,7 +173,7 @@ NDP13: NDP13Screen,
 NDP14: NDP14Screen,
         },
         {
-            initialRouteName: "App"
+            initialRouteName: "Profile"
         }
     )
 );

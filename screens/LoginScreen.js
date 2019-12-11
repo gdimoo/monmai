@@ -1,7 +1,10 @@
 import React from "react";
-import { View, Text, StyleSheet, TextInput, TouchableOpacity,ImageBackground, Image, InteractionManager, LayoutAnimation } from "react-native";
+import { View, Text, StyleSheet, TextInput, TouchableOpacity,ImageBackground, Image,Dimensions, InteractionManager, LayoutAnimation } from "react-native";
 import * as firebase from "firebase";
 import { Ionicons } from "@expo/vector-icons";
+const { width } = Dimensions.get('window');
+const height = width * 0.5;
+import {Card} from 'react-native-shadow-cards';
 
 export default class LoginScreen extends React.Component {
     static navigationOptions = {
@@ -32,19 +35,22 @@ export default class LoginScreen extends React.Component {
         LayoutAnimation.easeInEaseOut();
 
         return (
-            <ImageBackground source={require('../assets/Bodylogin.png')} style={{flex:1,width: '100%', height: '100%'}}>
+            <ImageBackground source={require('../assets/Bodylogin.png')} style={{flex:1}} resizeMode="cover">
             < View style = {
                 styles.header, {
-                    marginTop: 50
+                    marginTop: 50,
+                    marginLeft:30
                 }
             } >
                     <TouchableOpacity onPress = {
                   () => this.clickEventListener(this.props.navigation)
                 }>
-                        <Ionicons name="md-arrow-back" size={30} color="#D8D9DB"></Ionicons>
+                        <Ionicons name="ios-arrow-back" size={50} color="#151515"></Ionicons>
                     </TouchableOpacity>
                 </View>
             <View style={styles.container}>
+
+                {/* <Card style={styles.formcard}> */}
 
                 <View style={styles.errorMessage}>
                     {this.state.errorMessage && <Text style={styles.error}>{this.state.errorMessage}</Text>}
@@ -61,7 +67,7 @@ export default class LoginScreen extends React.Component {
                         ></TextInput>
                     </View>
 
-                    <View style={{ marginTop: 32 }}>
+                    <View style={{ marginTop: 40 }}>
                         <Text style={styles.inputTitle}>Password</Text>
                         <TextInput
                             style={styles.input}
@@ -69,22 +75,15 @@ export default class LoginScreen extends React.Component {
                             autoCapitalize="none"
                             onChangeText={password => this.setState({ password })}
                             value={this.state.password}
-                        ></TextInput>
+                            ></TextInput>
                     </View>
-                </View>
-
                 <TouchableOpacity style={styles.button} onPress={this.handleLogin}>
                     <Text style={{ color: "#FFF", fontWeight: "500" }}>Sign in</Text>
                 </TouchableOpacity>
+                </View>
 
-                {/* <TouchableOpacity
-                    style={{ alignSelf: "center", marginTop: 32 }}
-                    onPress={() => this.props.navigation.navigate("Register")}
-                >
-                    <Text style={{ color: "#414959", fontSize: 13 }}>
-                        New to SocialApp? <Text style={{ fontWeight: "500", color: "#E9446A" }}>Sign up</Text>
-                    </Text>
-                </TouchableOpacity> */}
+                
+            {/* </Card> */}
             </View>
             </ImageBackground>
 
@@ -94,17 +93,24 @@ export default class LoginScreen extends React.Component {
 
 const styles = StyleSheet.create({
     container: {
-        flex: 1,
-        marginTop: 100,
-        marginHorizontal: 20
+        flex: 1, 
+        justifyContent: 'center',
+        alignItems:'center',
     },
+    // formcard: {
+    //     marginBottom: 100,
+        
+    // },
+    
     form: {
-        marginBottom: 48,
-        marginHorizontal: 30
+        width:width*0.6,
+        marginHorizontal:50,
+        marginBottom: 100,
+        
     },
     inputTitle: {
         color: "#8A8F9E",
-        fontSize: 10,
+        fontSize: 12,
         textTransform: "uppercase"
     },
     input: {
@@ -119,8 +125,11 @@ const styles = StyleSheet.create({
         backgroundColor: "#E9446A",
         borderRadius: 4,
         height: 52,
+        width:width*0.5,
         alignItems: "center",
-        justifyContent: "center"
+        justifyContent: "center",
+        marginBottom: height*0.4,
+        marginTop: 40
     },
     errorMessage: {
         height: 72,
