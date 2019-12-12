@@ -14,19 +14,6 @@ import PostScreen from "./screens/PostScreen";
 import NotificationScreen from "./screens/NDP01";
 import ScanScreen from "./screens/ScanScreen";
 import NDP01Screen from "./screens/NDP01";
-import NDP02Screen from "./screens/NDP02";
-import NDP03Screen from "./screens/NDP03";
-import NDP04Screen from "./screens/NDP04";
-import NDP05Screen from "./screens/NDP05";
-import NDP06Screen from "./screens/NDP06";
-import NDP07Screen from "./screens/NDP07";
-import NDP08Screen from "./screens/NDP08";
-import NDP09Screen from "./screens/NDP09";
-import NDP10Screen from "./screens/NDP10";
-import NDP11Screen from "./screens/NDP11";
-import NDP12Screen from "./screens/NDP12";
-import NDP13Screen from "./screens/NDP13";
-import NDP14Screen from "./screens/NDP14";
 import { YellowBox } from 'react-native';
 import _ from 'lodash';
 
@@ -63,19 +50,6 @@ const config = Platform.select({
       config
   );
   createStackNavigator({NDP01: NDP01Screen,},config);
-  createStackNavigator({NDP02: NDP02Screen,},config);
-  createStackNavigator({NDP03: NDP03Screen,},config);
-  createStackNavigator({NDP04: NDP04Screen,},config);
-  createStackNavigator({NDP05: NDP05Screen,},config);
-  createStackNavigator({NDP06: NDP06Screen,},config);
-  createStackNavigator({NDP07: NDP07Screen,},config);
-  createStackNavigator({NDP08: NDP08Screen,},config);
-  createStackNavigator({NDP09: NDP09Screen,},config);
-  createStackNavigator({NDP10: NDP10Screen,},config);
-createStackNavigator({NDP11: NDP11Screen,},config);
-createStackNavigator({NDP12: NDP12Screen,},config);
-createStackNavigator({NDP13: NDP13Screen,},config);
-createStackNavigator({NDP14: NDP14Screen,},config);
 
 const AppContainer = createStackNavigator(
     {
@@ -140,7 +114,6 @@ const AppContainer = createStackNavigator(
     {
         mode: "modal",
         headerMode: "none",
-        // initialRouteName: "postModal"
     }
 );
 
@@ -158,22 +131,9 @@ export default createAppContainer(
             Post: PostScreen,
             Profile: ProfileScreen,
             NDP01: NDP01Screen,
-NDP02: NDP02Screen,
-NDP03: NDP03Screen,
-NDP04: NDP04Screen,
-NDP05: NDP05Screen,
-NDP06: NDP06Screen,
-NDP07: NDP07Screen,
-NDP08: NDP08Screen,
-NDP09: NDP09Screen,
-NDP10: NDP10Screen,
-NDP11: NDP11Screen,
-NDP12: NDP12Screen,
-NDP13: NDP13Screen,
-NDP14: NDP14Screen,
         },
         {
-            initialRouteName: "Profile"
+            initialRouteName: "App"
         }
     )
 );

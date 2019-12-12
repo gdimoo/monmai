@@ -15,15 +15,23 @@ export default class ProfileScreen extends React.Component {
         super(props);
 
       this.state = {
-          posts: [],
+        nameTH: "",
+        Commonname: "",
+        Sciname: "",
+        Family: "",
+        Plantpart: "",
+        shade: "",
+        image: null,
+        image2: null,
+        image3: null,
             activeTab: 0,
             imageIndex: 0,
             isImageViewVisible: false,
+            
         };
       }
 
     clickEventListener = (navigation) => {
-        //function to handle click on floating Action Button
         InteractionManager.runAfterInteractions(() => {
             navigation.navigate('Loading')
           })
@@ -31,67 +39,76 @@ export default class ProfileScreen extends React.Component {
       componentDidMount() {
           this.fetchData();
           
-    
         }
         // this.props.navigation.state.params.JSON_ListView_Clicked_Item
         fetchData = () => {
-            // console.log(this.props.navigation.state.params.ListView_Clicked_Item)
             Fire.shared.firestore
           .collection('posts')
-          .where('No', '==','1' )
-        //   .where('No', '==',this.props.navigation.state.params.ListView_Clicked_Item )
+        //   .where('No', '==','1' )
+        .where('No', '==',this.props.navigation.state.params.ListView_Clicked_Item )
           .get()
           .then(querySnapshot => {
             const data = querySnapshot.docs.map(doc => doc.data());
+            data.forEach(element => {
+                // console.log(element);
+                this.setState({ nameTH: element.nameTH,
+                Commonname:element.Commonname,
+                Sciname:element.Sciname,
+                Family:element.Family,
+                Plantpart:element.Plantpart,
+                shade:element.shade,
+                image:element.image,
+                image2:element.image2,
+                image3:element.image3,
+             });
 
-            this.setState({ posts: data });
+            });
+
         }
         );
         }
-      
 
-    renderPost = post => {
+    render() {
         const data = [
-            { title: 'ชื่อวิทยาศาสตร์ (Scientific name)', description: post.Sciname},
-            { title: 'ชื่อวงค์ (Family name)', description: post.Family},
-            { title: 'ส่วนที่ใช้ย้อม (Plant part)', description: post.Plantpart},
-            { title: 'สีที่ได้', description: post.shade},
+            { title: 'ชื่อวิทยาศาสตร์ (Scientific name)', description: this.state.Sciname},
+            { title: 'ชื่อวงค์ (Family name)', description: this.state.Family},
+            { title: 'ส่วนที่ใช้ย้อม (Plant part)', description: this.state.Plantpart},
+            { title: 'สีที่ได้', description: this.state.shade},
           ];
         const cities = [
             {
                 source: {
                     uri:
-                    post.image,
+                    this.state.image,
                 },
             },
             {
-                // eslint-disable-next-line
                 source: {
-                  uri:post.image2
+                  uri:this.state.image2
                 },
             },
             {
                 source: {
                     uri:
-                    post.image3,
+                    this.state.image3,
                 },
             },
           ];
-        
-const tabs = [
-    {title: 'Cities', images: cities},
-  ];
-        const {isImageViewVisible, activeTab, imageIndex} = this.state;
-        const images = tabs[activeTab].images || [];
+          const tabs = [
+            {title: 'Cities', images: cities},
+          ];
+                const {isImageViewVisible, activeTab, imageIndex} = this.state;
+                const images = tabs[activeTab].images || [];
         return (
+            <ImageBackground source={require('../assets/alltree.png')} style={{flex:1,width: '100%', height: '100%'}}>
 
-
-                <View>
+            <View style={styles.container}>                
                     <View style={{paddingLeft: 20}}>
-                <Text style={styles.customSize}>Common name</Text>
-                <Text style={styles.customSize}>{post.nameTH}</Text>
-                <Text style={styles.customSize}>{post.Commonname}</Text></View>
-                    <View style={{flexDirection: 'row',marginTop:20}}>
+                <Text style={styles.headerTitle}>Common name</Text>
+                <Text style={styles.subheaderTitle}>{this.state.nameTH}</Text>
+                <Text style={styles.subheaderTitle}>{this.state.Commonname}</Text>
+                </View>
+                    <View style={{flexDirection: 'row',marginVertical:30}}>
                             {images.map((image, index) => (
                                 <TouchableOpacity
                                     key={image.title}
@@ -105,11 +122,10 @@ const tabs = [
                                     <Image
                                         style={{width:width/3, height: height}}
                                         source={image.source}
-                                        resizeMode="contain"
+                                        resizeMode="cover"
                                     />
                                 </TouchableOpacity>
                             ))}
-                        </View>
                         <ImageView
                             glideAlways
                             images={images}
@@ -118,14 +134,10 @@ const tabs = [
                             isVisible={isImageViewVisible}
                             renderFooter={this.renderFooter}
                             onClose={() => this.setState({isImageViewVisible: false})}
-                            onImageChange={index => {
-                                console.log(index);
-                            }}
                         />
-        
-                    
-        
-                <Timeline 
+
+              </View>
+              <Timeline 
                 circleSize={RFPercentage(3)}
                 circleColor='rgb(45,156,219)'
                 lineColor='rgb(45,156,219)'
@@ -134,34 +146,13 @@ const tabs = [
                   style={styles.list}
                   data={data}
                 />
-                
-              </View>
-        );
-    };
-
-    render() {
-
-        return (
-            <ImageBackground source={require('../assets/alltree.png')} style={{flex:1,width: '100%', height: '100%'}}>
-
-            <View style={styles.container}>
-
-                <FlatList
-                    // style={styles.feed}
-                    data={this.state.posts}
-                    renderItem={({ item }) => this.renderPost(item)}
-                    keyExtractor={item => item.No}
-                    showsVerticalScrollIndicator={false}
-                    >
-                ></FlatList>
-
-                < Button
-        title = "Go Back"
-        onPress = {
-          () => this.props.navigation.navigate('Home')
-        }
-        />
             </View>
+<TouchableOpacity style={styles.footer}
+ onPress={() => {
+          this.props.navigation.navigate('Home')
+        }}>
+    <Text style={styles.customSize,{color:'white'}}>Go Back</Text>
+</TouchableOpacity>
             </ImageBackground>
 
         );
@@ -171,15 +162,20 @@ const tabs = [
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        // padding: 20,
         paddingTop:65,
-        width
+        width,
         
       },
-    headerTitle: {
-        fontSize: 20,
-        fontWeight: "500"
-    },
+      headerTitle: {
+          fontWeight: "500",
+          fontSize: RFPercentage(2.5),
+          letterSpacing: sanFranciscoSpacing(RFPercentage(2.5)),
+      },
+      subheaderTitle: {
+          fontWeight: "500",
+          fontSize: RFPercentage(2.2),
+          letterSpacing: sanFranciscoSpacing(RFPercentage(2.2)),
+      },
     feed: {
         marginHorizontal: 16
     },
@@ -211,10 +207,14 @@ const styles = StyleSheet.create({
         borderRadius: 5,
         marginVertical: 16
     },
-        customSize: {
-            fontSize: RFPercentage(3),
-            letterSpacing: sanFranciscoSpacing(RFPercentage(3)),
-          },
+    customSize: {
+        fontSize: RFPercentage(2),
+        letterSpacing: sanFranciscoSpacing(RFPercentage(2)),
+      },        
+      customSizesub: {
+        fontSize: RFPercentage(1.7),
+        letterSpacing: sanFranciscoSpacing(RFPercentage(1.7)),
+      },
       list: {
         flex: 1,
         marginTop:20,
@@ -250,17 +250,8 @@ const styles = StyleSheet.create({
             flexDirection: 'row',
             alignItems: 'center',
             justifyContent: 'center',
-            backgroundColor: 'rgba(0, 0, 0, 0.4)',
+            backgroundColor: '#8283FA',
             paddingHorizontal: 10,
             paddingVertical: 5,
-        },
-        footerButton: {
-            flexDirection: 'row',
-            marginLeft: 15,
-        },
-        footerText: {
-            fontSize: 16,
-            color: '#FFF',
-            textAlign: 'center',
         },
 });

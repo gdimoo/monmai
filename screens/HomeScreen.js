@@ -31,12 +31,8 @@ export default class HomeScreen extends React.Component {
           .get()
           .then(querySnapshot => {
             const data = querySnapshot.docs.map(doc => doc.data());
-            // console.log(data);
-            // console.log(this.state.posts);
 
-            // this.state.posts=data
             this.setState({ posts: data });
-            // console.log(this.state.posts);
 
         }
         );
