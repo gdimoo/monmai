@@ -1,8 +1,7 @@
 import React from "react";
-import { View, Text, StyleSheet, Image,Button, FlatList,TouchableOpacity,Dimensions,InteractionManager,ImageBackground, } from "react-native";
-import { Ionicons } from "@expo/vector-icons";
+import { View, Text, StyleSheet, Image,TouchableOpacity,Dimensions,InteractionManager,ImageBackground, } from "react-native";
 import Fire from "../Fire";
-import { RFPercentage, RFValue } from "react-native-responsive-fontsize";
+import { RFPercentage } from "react-native-responsive-fontsize";
 
 import Timeline from 'react-native-timeline-listview'
 import { sanFranciscoSpacing } from 'react-native-typography'

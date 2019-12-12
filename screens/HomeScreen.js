@@ -2,6 +2,8 @@ import React from "react";
 import { View, Text, StyleSheet, Image, FlatList,TouchableOpacity,Dimensions,InteractionManager } from "react-native";
 import { Ionicons } from "@expo/vector-icons";
 import Fire from "../Fire";
+import { RFPercentage } from "react-native-responsive-fontsize";
+import { sanFranciscoSpacing } from 'react-native-typography'
 
 const { width } = Dimensions.get('window');
 const height = width * 0.5;
@@ -50,7 +52,7 @@ export default class HomeScreen extends React.Component {
                 <View style={{ flex: 1 }}>
                     <View style={{ flexDirection: "row", justifyContent: "space-between", alignItems: "center" }}>
                         <View>
-                            <Text style={styles.name}>{post.nameTH}</Text>
+                            <Text style={styles.subname}>{post.nameTH}</Text>
                             <Text style={styles.name}>{post.Commonname}</Text>
                         </View>
 
@@ -99,10 +101,6 @@ const styles = StyleSheet.create({
         flex: 1,
         backgroundColor: "#EBECF4"
     },
-    headerTitle: {
-        fontSize: 20,
-        fontWeight: "500"
-    },
     feed: {
         marginHorizontal: 16
     },
@@ -114,9 +112,13 @@ const styles = StyleSheet.create({
         marginVertical: 8
     },
     name: {
-        fontSize: 18,
         fontWeight: "500",
-        color: "#454D65"
+          fontSize: RFPercentage(2),
+          letterSpacing: sanFranciscoSpacing(RFPercentage(2)),
+    },
+    subname: {
+          fontSize: RFPercentage(2),
+          letterSpacing: sanFranciscoSpacing(RFPercentage(2)),
     },
     timestamp: {
         fontSize: 11,
