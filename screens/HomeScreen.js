@@ -1,10 +1,12 @@
 import React from "react";
-import { View, Text, StyleSheet, Image, FlatList,TouchableOpacity,Dimensions,InteractionManager } from "react-native";
+import { View, Text, StyleSheet,Image, FlatList,TouchableOpacity,Dimensions,InteractionManager } from "react-native";
 import { Ionicons } from "@expo/vector-icons";
 import Fire from "../Fire";
 import { RFPercentage } from "react-native-responsive-fontsize";
 import { sanFranciscoSpacing } from 'react-native-typography'
 
+// import {CachedImage} from "react-native-img-cache";
+// import {Image} from "react-native-expo-image-cache";
 const { width } = Dimensions.get('window');
 const height = width * 0.5;
 
@@ -58,7 +60,7 @@ export default class HomeScreen extends React.Component {
 
                         <Ionicons name="ios-more" size={24} color="#73788B" />
                     </View>
-                    <Image source={{uri: post.image }} style={styles.postImage} resizeMode="cover" />
+                    <Image  source={{uri: post.image }} style={styles.postImage} resizeMode="cover"/>
                 </View>
             </View>
                 </ TouchableOpacity>

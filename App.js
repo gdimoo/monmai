@@ -133,7 +133,7 @@ export default createAppContainer(
             NDP01: NDP01Screen,
         },
         {
-            initialRouteName: "App"
+            initialRouteName: "Post"
         }
     )
 );

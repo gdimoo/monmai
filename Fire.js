@@ -45,6 +45,7 @@ class Fire {
         Family,
         Plantpart,
         shade,
+        displaycolor,
                     image: remoteUri,
                     image2: remoteUri2,
                     image3: remoteUri3,

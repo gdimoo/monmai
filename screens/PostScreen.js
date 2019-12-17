@@ -7,7 +7,7 @@ import UserPermissions from "../utilities/UserPermissions";
 
 import React, { Component } from 'react'
 import Reinput, { ReinputButton } from 'reinput'
-
+import { ColorPicker,toHsv } from 'react-native-color-picker'
 
 export default class PostScreen extends React.Component {
     state = {
@@ -18,11 +18,19 @@ export default class PostScreen extends React.Component {
         Family: "",
         Plantpart: "",
         shade: "",
+        displaycolor: toHsv('green'),
         image: null,
         image2: null,
         image3: null,
+        
     };
+    onColorChange = this.onColorChange.bind(this)
 
+    onColorChange(displaycolor) {
+      this.setState({ displaycolor })
+    }
+  
+    
     componentDidMount() {
         UserPermissions.getCameraPermission;
     }
@@ -43,6 +51,7 @@ export default class PostScreen extends React.Component {
                 Family: this.state.Family.trim(),
                 Plantpart: this.state.Plantpart.trim(),
                 shade: this.state.shade.trim(),
+                displaycolor: this.state.displaycolor,
                 localUri: this.state.image,
                 localUri2: this.state.image2,
                 localUri3: this.state.image3 })
@@ -55,6 +64,7 @@ export default class PostScreen extends React.Component {
                   Family: "",
                   Plantpart: "",
                   shade: "",
+                  displaycolor: "",
                 image: null,
                 image2: null,
                 image3: null, });
@@ -140,6 +150,15 @@ export default class PostScreen extends React.Component {
                     <Image source={{ uri: this.state.image3 }} style={{ width: "100%", height: "100%" }} resizeMode="contain"></Image>
        
                 </View>
+                <View style={{ marginHorizontal: 32, marginTop: 32, height: 100 }}>
+        <Text style={{color: 'white'}}>Select Color to Display</Text>
+        <ColorPicker
+          color={this.state.displaycolor}
+          onColorChange={this.onColorChange}
+          onColorSelected={color => alert(`Color selected: ${color}`)}
+          onOldColorSelected={color => alert(`Old color selected: ${color}`)}
+          style={{flex: 1}}
+        /></View>
                 {/* </View> */}
                <ScrollView
          contentContainerStyle={styles.scrollContainer}
