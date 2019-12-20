@@ -21,6 +21,7 @@ export default class ProfileScreen extends React.Component {
         Family: "",
         Plantpart: "",
         shade: "",
+        displaycolor: 'rgb(45,156,219)',
         image: null,
         image2: null,
         image3: null,
@@ -56,6 +57,7 @@ export default class ProfileScreen extends React.Component {
                 Sciname:element.Sciname,
                 Family:element.Family,
                 Plantpart:element.Plantpart,
+                displaycolor: element.displaycolor,
                 shade:element.shade,
                 image:element.image,
                 image2:element.image2,
@@ -71,7 +73,7 @@ export default class ProfileScreen extends React.Component {
     render() {
         const data = [
             { title: 'ชื่อวิทยาศาสตร์ (Scientific name)', description: this.state.Sciname},
-            { title: 'ชื่อวงค์ (Family name)', description: this.state.Family},
+            { title: 'ชื่อวงศ์ (Family name)', description: this.state.Family},
             { title: 'ส่วนที่ใช้ย้อม (Plant part)', description: this.state.Plantpart},
             { title: 'สีที่ได้', description: this.state.shade},
           ];
@@ -139,8 +141,8 @@ export default class ProfileScreen extends React.Component {
               </View>
               <Timeline 
                 circleSize={RFPercentage(3)}
-                circleColor='rgb(45,156,219)'
-                lineColor='rgb(45,156,219)'
+                circleColor={this.state.displaycolor}
+                lineColor={this.state.displaycolor}
                 descriptionStyle={styles.customSize}
                 titleStyle={styles.customSize}
                   style={styles.list}
@@ -168,8 +170,8 @@ const styles = StyleSheet.create({
       },
       headerTitle: {
           fontWeight: "500",
-          fontSize: RFPercentage(2.5),
-          letterSpacing: sanFranciscoSpacing(RFPercentage(2.5)),
+          fontSize: RFPercentage(3),
+          letterSpacing: sanFranciscoSpacing(RFPercentage(3)),
       },
       subheaderTitle: {
           fontWeight: "500",

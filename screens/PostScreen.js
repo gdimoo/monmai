@@ -127,6 +127,9 @@ export default class PostScreen extends React.Component {
            
       <View
         style={styles.container}>
+                <ScrollView
+          contentContainerStyle={styles.scrollContainer}
+          style={styles.container}>
         <Text style={styles.welcome}>
           Add Tree Information
         </Text>
@@ -151,7 +154,7 @@ export default class PostScreen extends React.Component {
        
                 </View>
                 <View style={{ marginHorizontal: 32, marginTop: 32, height: 100 }}>
-        <Text style={{color: 'white'}}>Select Color to Display</Text>
+        <Text style={{color: 'black'}}>Select Color to Display</Text>
         <ColorPicker
           color={this.state.displaycolor}
           onColorChange={this.onColorChange}
@@ -160,9 +163,6 @@ export default class PostScreen extends React.Component {
           style={{flex: 1}}
         /></View>
                 {/* </View> */}
-               <ScrollView
-         contentContainerStyle={styles.scrollContainer}
-         style={styles.container}>
          <Reinput
            label='No.'
            icon={<Image source={require('./icon.png')} />}

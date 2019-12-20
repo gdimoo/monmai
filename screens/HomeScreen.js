@@ -5,6 +5,7 @@ import Fire from "../Fire";
 import { RFPercentage } from "react-native-responsive-fontsize";
 import { sanFranciscoSpacing } from 'react-native-typography'
 
+// import FastImage from 'react-native-fast-image-expo'
 // import {CachedImage} from "react-native-img-cache";
 // import {Image} from "react-native-expo-image-cache";
 const { width } = Dimensions.get('window');
@@ -61,6 +62,23 @@ export default class HomeScreen extends React.Component {
                         <Ionicons name="ios-more" size={24} color="#73788B" />
                     </View>
                     <Image  source={{uri: post.image }} style={styles.postImage} resizeMode="cover"/>
+                    {/* < FastImage
+                    style = {
+                        styles.postImage
+                    }
+                    source = {
+                        {
+                            uri: post.image,
+                            headers: {
+                                Authorization: 'someAuthToken'
+                            },
+                            priority: FastImage.priority.normal,
+                        }
+                    }
+                    resizeMode = {
+                        FastImage.resizeMode.cover
+                    }
+                    /> */}
                 </View>
             </View>
                 </ TouchableOpacity>
